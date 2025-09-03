@@ -1,0 +1,233 @@
+body {
+  background: hotpink !important;
+}
+/* ================
+   Miami University theme (brand-inspired)
+   - Replace or extend your existing CSS with this file
+   - Honors data-theme="light" | "dark" on <html>
+   ================ */
+
+/* Typography (optional web fonts can be added via <link> in HTML)
+   Headings feel collegiate with a strong serif fallback */
+:root {
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Merriweather", "Georgia", serif;
+}
+
+/* Light + dark palettes (brand-inspired, not official) */
+:root[data-theme="dark"] {
+  --mu-red: #c41e3a;        /* primary accent */
+  --bg: #0b0f1a;            /* app background */
+  --panel: #121827;         /* panels */
+  --text: #eef2ff;          /* body text */
+  --muted: #9aa4b2;         /* secondary text */
+  --line: #222b3b;          /* borders */
+  --accent: var(--mu-red);  /* buttons, links, hovers */
+  --ok: #16a34a;            /* success (open) */
+  --warn: #f59e0b;          /* warnings */
+  --danger: #ef4444;        /* errors */
+}
+
+:root[data-theme="light"] {
+  --mu-red: #b4152f;
+  --bg: #ffffff;
+  --panel: #f7f7f8;
+  --text: #0b1020;
+  --muted: #6b7280;
+  --line: #e4e6eb;
+  --accent: var(--mu-red);
+  --ok: #15803d;
+  --warn: #b45309;
+  --danger: #b91c1c;
+}
+
+/* Base */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; height: auto; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
+.muted { color: var(--muted); }
+
+/* Focus visibility with brand color */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+  transition: outline-color .2s ease;
+}
+
+/* Header with Miami accent stripe */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.03) 100%), var(--panel);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 1px 0 var(--line), inset 0 -4px 0 var(--accent); /* red stripe */
+}
+.header-wrap { display:flex; align-items:center; justify-content:space-between; padding:14px 0; gap:12px; }
+.brand { display:flex; align-items:center; gap:10px; }
+.brand-badge {
+  width: 32px; height: 32px; display:grid; place-items:center;
+  background: color-mix(in oklab, var(--accent) 15%, transparent);
+  color: var(--accent);
+  border: 1px solid color-mix(in oklab, var(--accent) 45%, transparent);
+  border-radius: 6px; font-weight: 700;
+}
+.brand-name { font-family: var(--font-serif); font-weight: 900; letter-spacing: .2px; }
+
+/* Footer */
+.site-footer { border-top:1px solid var(--line); background: var(--panel); }
+.site-footer .container { padding: 16px; color: var(--muted); font-size: 13px; }
+
+/* Layout */
+.layout { display:grid; grid-template-columns:1fr; gap:16px; padding:16px 0 20px; }
+@media (min-width: 960px) { .layout { grid-template-columns: 340px 1fr; gap: 20px; } }
+
+/* Panels and sections */
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 0 rgba(0,0,0,.05);
+}
+.panel-hd, .results-hd, .dialog-hd {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--muted);
+}
+.panel-bd { padding: 12px 14px; }
+
+/* Map + list region */
+.map-and-list { display:grid; grid-template-rows: 320px auto; gap: 16px; }
+@media (min-width: 960px) { .map-and-list { grid-template-rows: 460px auto; } }
+#map {
+  height:100%; width:100%;
+  border-radius: 12px;
+  border: 2px solid color-mix(in oklab, var(--accent) 20%, var(--line));
+  background:
+    radial-gradient(1200px 200px at 20% 0%, color-mix(in oklab, var(--accent) 8%, transparent), transparent 60%),
+    var(--panel);
+  display:grid; place-items:center;
+}
+.map-placeholder { color: var(--muted); }
+
+/* Controls */
+.controls { display:grid; gap:12px; }
+.row { display:grid; gap:8px; }
+label, legend { font-size:13px; color: var(--muted); }
+input[type="search"], select {
+  width:100%; padding:12px 12px;
+  background: color-mix(in oklab, var(--panel) 70%, black 0%);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+input::placeholder { color: color-mix(in oklab, var(--muted) 70%, transparent); }
+
+.chips { display:flex; flex-wrap:wrap; gap:8px; }
+.chip {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:10px 12px; border-radius: 999px; font-size: 13px;
+  background: color-mix(in oklab, var(--panel) 85%, var(--accent) 0%);
+  border: 1px solid var(--line); color: var(--text);
+}
+.chip input { accent-color: var(--accent); transform: scale(1.1); }
+
+/* Buttons */
+.btn {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: color-mix(in oklab, var(--panel) 85%, black 0%);
+  color: var(--text);
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background .15s ease, border-color .15s ease, transform .02s ease;
+}
+.btn:hover { border-color: color-mix(in oklab, var(--accent) 25%, var(--line)); }
+.btn:active { transform: translateY(1px); }
+.btn.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+.actions { display:flex; gap:10px; flex-wrap: wrap; }
+
+/* Results list */
+.results-list { list-style:none; margin:0; padding:0; }
+.card {
+  display:grid; gap:8px; padding: 14px 14px;
+  border-top: 1px solid var(--line);
+  transition: background .15s ease, border-color .15s ease;
+}
+.card:first-child { border-top: none; }
+.card:hover { background: color-mix(in oklab, var(--panel) 92%, var(--accent) 8%); border-color: color-mix(in oklab, var(--accent) 20%, var(--line)); }
+.card .title { font-weight: 800; font-family: var(--font-serif); letter-spacing: .1px; }
+.meta { display:flex; flex-wrap:wrap; gap:10px; font-size:13px; color: var(--muted); }
+
+/* Badges */
+.badge {
+  display:inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px;
+  background: color-mix(in oklab, var(--panel) 80%, var(--accent) 0%);
+  border: 1px solid var(--line); color: var(--text);
+}
+.badge.category { border-color: color-mix(in oklab, var(--accent) 35%, var(--line)); }
+.badge.is-open { background: color-mix(in oklab, var(--ok) 25%, var(--panel)); border-color: color-mix(in oklab, var(--ok) 55%, var(--line)); color: #0a1a0a; }
+.badge.is-closed { background: color-mix(in oklab, var(--danger) 18%, var(--panel)); border-color: color-mix(in oklab, var(--danger) 45%, var(--line)); }
+
+/* Optional category tints (add class to category badge for richer color) */
+.badge.study    { border-color: color-mix(in oklab, var(--accent) 40%, var(--line)); }
+.badge.lab      { border-color: color-mix(in oklab, #0ea5e9 40%, var(--line)); }
+.badge.tutoring { border-color: color-mix(in oklab, #8b5cf6 40%, var(--line)); }
+.badge.dining   { border-color: color-mix(in oklab, #f59e0b 40%, var(--line)); }
+.badge.service  { border-color: color-mix(in oklab, #10b981 40%, var(--line)); }
+
+/* Dialog */
+dialog {
+  background: var(--panel); color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  max-width: 640px; width: 96%;
+  padding: 0;
+}
+dialog::backdrop { background: rgba(2, 6, 23, 0.65); backdrop-filter: blur(2px); }
+.dialog-bd { padding: 14px; display: grid; gap: 10px; }
+
+/* Miami stripe accent on sub-panels (results area) */
+.panel .results-hd {
+  background:
+    linear-gradient(90deg, var(--accent) 0 4px, transparent 4px 100%),
+    transparent;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Responsive: mobile-first polish */
+@media (max-width: 599px) {
+  .header-wrap { padding: 12px 0; }
+  .brand-name { font-size: 16px; }
+  .map-and-list { grid-template-rows: 260px auto; }
+  .btn, .chip, input[type="search"], select { min-height: 44px; } /* better tap targets */
+  .actions { position: sticky; bottom: 0; background: var(--panel); padding-bottom: 8px; }
+}
+
+/* Print (simple) */
+@media print {
+  .site-header, .site-footer, #map { display: none !important; }
+  body { background: #fff; color: #000; }
+  .panel, .card { border-color: #aaa; box-shadow: none; }
+}
